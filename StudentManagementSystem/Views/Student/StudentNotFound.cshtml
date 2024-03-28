@@ -1,0 +1,24 @@
+﻿@model Guid;
+
+@{
+    ViewData["Title"] = "Student";
+}
+<div class="container text-start">
+    <div class="row">
+        <partial name="_SideNavPartial" />
+        <div class="col border">
+            <div class="container text-start">
+                <div class="border p-2 mt-3">
+                    <a asp-controller="Student" asp-action="StudentList" class="btn btn-light" data-mdb-ripple-init data-mdb-ripple-color="dark">
+                        <i class="bi bi-person-plus-fill"></i>
+                        Student List
+                    </a>
+                </div>
+                <div class="d-flex justify-content-center">
+                    Student with Id = @Model cannot be found !!!
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
