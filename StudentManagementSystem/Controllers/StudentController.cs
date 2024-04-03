@@ -112,5 +112,22 @@ namespace StudentManagementSystem.Controllers
             }
             return RedirectToAction("StudentList", "Student");
         }
+
+        public async Task<IActionResult> DeleteStudent(Guid? id)
+        {
+            ViewData["student"] = _active;
+            if (id == null)
+            {
+                return RedirectToAction("StudentList", "Student");
+            }
+            Student student = await _studentRepository.GetStudentById(id);
+            if (student == null)
+            {
+                Response.StatusCode = 404;
+                return View("StudentNotFound", id);
+            }
+            await _studentRepository.DeleteStudent(id);
+            return RedirectToAction("StudentList", "Student");
+        }
     }
 }

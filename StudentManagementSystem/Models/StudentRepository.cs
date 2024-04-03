@@ -17,9 +17,14 @@ namespace StudentManagementSystem.Models
             return student;
         }
 
-        public void DeleteStudent(Guid id)
+        public async Task DeleteStudent(Guid? id)
         {
-            throw new NotImplementedException();
+            Student? student = await _dbContext.Students.FirstOrDefaultAsync(e => e.Id == id);
+            if (student != null)
+            {
+                _dbContext.Students.Remove(student);
+                await _dbContext.SaveChangesAsync();
+            }
         }
 
         public async Task<IEnumerable<Student>> GetAllStudent()
