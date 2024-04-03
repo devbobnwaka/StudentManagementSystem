@@ -8,6 +8,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
 
 var app = builder.Build();  
 
