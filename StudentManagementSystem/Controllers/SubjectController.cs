@@ -24,7 +24,7 @@ namespace StudentManagementSystem.Controllers
         [HttpGet]
         public async Task<IActionResult> GetSubject(Guid? id)
         {
-            ViewData["student"] = _active;
+            ViewData["subject"] = _active;
             if (id == null)
             {
                 return RedirectToAction("ListSubject", "Subject");
@@ -52,6 +52,37 @@ namespace StudentManagementSystem.Controllers
             ViewData["subject"] = _active;
             return View();
         }
+        [HttpGet]
+        public async Task<IActionResult> EditSubject(Guid? id)
+        {
+            ViewData["subject"] = _active;
+            if (id == null)
+            {
+                return RedirectToAction("ListSubject", "Subject");
+            }
+            Subject subject = await _subjectRepository.GetSubjectById(id);
+            if (subject == null)
+            {
+                Response.StatusCode = 404;
+                return View("SubjectNotFound", id);
+            }
+            return View(subject);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditSubject([Bind("Name", "Id")] Subject? model)
+        {
+            ViewData["student"] = _active;
+            if (ModelState.IsValid)
+            {
+                Subject subject = await _subjectRepository.GetSubjectById(model.Id);
+                subject.Name = model.Name;
+
+                await _subjectRepository.UpdateSubject(subject);
+                return RedirectToAction("ListSubject", "Subject");
+            }
+            return View();
+        }
 
         [HttpPost]
         public async Task<IActionResult> CreateSubject([Bind("Name")]Subject? model)
@@ -65,9 +96,25 @@ namespace StudentManagementSystem.Controllers
                 };
                 await _subjectRepository.CreateSubject(subject);
                 return RedirectToAction("ListSubject", "Subject");
-                //return RedirectToAction("GetSubject", "Subject", new { id = subject.Id });
             }
             return View();
+        }
+
+        public async Task<IActionResult> DeleteSubject(Guid? id)
+        {
+            ViewData["subject"] = _active;
+            if (id == null)
+            {
+                return RedirectToAction("ListSubject", "Subject");
+            }
+            Subject subject = await _subjectRepository.GetSubjectById(id);
+            if (subject == null)
+            {
+                Response.StatusCode = 404;
+                return View("SubjectNotFound", id);
+            }
+            await _subjectRepository.DeleteSubject(id);
+            return RedirectToAction("ListSubject", "Subject");
         }
     }
 }

@@ -1,0 +1,117 @@
+﻿@model IEnumerable<Result>;
+@{
+    ViewData["Title"] = "Student";
+}
+<div class="container text-start">
+    <div class="row">
+        <partial name="_SideNavPartial" />
+        <div class="col border">
+            <div class="container text-start">
+                <div class="border p-2 mt-3">
+                    <a asp-controller="Result" asp-action="AddResult" class="btn btn-light" data-mdb-ripple-init data-mdb-ripple-color="dark">
+                        <i class="bi bi-person-plus-fill"></i>
+                        Add New Result
+                    </a>
+                    <span class="ms-5">
+                        <a asp-controller="Result" asp-action="ListResult" class="btn btn-light" data-mdb-ripple-init data-mdb-ripple-color="dark">
+                            All
+                        </a>
+                        <a asp-controller="Result" asp-action="ListResult" asp-route-klass="0" class="btn btn-light" data-mdb-ripple-init data-mdb-ripple-color="dark">
+                            JSS1
+                        </a>
+                        <a asp-controller="Result" asp-action="ListResult" asp-route-klass="1" class="btn btn-light" data-mdb-ripple-init data-mdb-ripple-color="dark">
+                            JSS2
+                        </a>
+                        <a asp-controller="Result" asp-action="ListResult" asp-route-klass="2" class="btn btn-light" data-mdb-ripple-init data-mdb-ripple-color="dark">
+                            JSS3
+                        </a>
+                        <a asp-controller="Result" asp-action="ListResult" asp-route-klass="3" class="btn btn-light" data-mdb-ripple-init data-mdb-ripple-color="dark">
+                            SSS1
+                        </a>
+                        <a asp-controller="Result" asp-action="ListResult" asp-route-klass="4" class="btn btn-light" data-mdb-ripple-init data-mdb-ripple-color="dark">
+                            SSS2
+                        </a>
+                        <a asp-controller="Result" asp-action="ListResult" asp-route-klass="5" class="btn btn-light" data-mdb-ripple-init data-mdb-ripple-color="dark">
+                            SSS3
+                        </a>
+                    </span>
+                    <div class="row">
+                        <form asp-action="ListResult" asp-controller="Result" method="GET" class="col">
+                            <input type="text" id="name" name="name" value="@ViewData["name"]" />
+                            <button type="submit">Search by Name</button>
+                        </form>
+
+                        <form asp-action="ListResult" asp-controller="Result" method="GET" class="col">
+                            <input type="text" id="subject" name="subject" value="@ViewData["subject"]" />
+                            <button type="submit">Search by Subject</button>
+                        </form>
+                    </div>
+                </div>
+                <table class="table align-middle mb-0 bg-white">
+                    <thead class="bg-light ">
+                        <tr>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Subject</th>
+                            <th>Grade</th>
+                            <th>Mark</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Result result in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <img src="https://mdbootstrap.com/img/new/avatars/8.jpg"
+                                             alt=""
+                                             style="width: 45px; height: 45px"
+                                             class="rounded-circle" />
+                                        <div class="ms-3">
+                                            <p class="fw-bold mb-1">@result.Student.Name</p>
+                                            <p class="text-muted mb-0"></p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <p class="fw-normal mb-1">@result.Student.Class</p>
+                                    <p class="text-muted mb-0"></p>
+                                </td>
+                                <td>
+                                    <p class="fw-normal mb-1">@result.Subject.Name</p>
+                                    <p class="text-muted mb-0"></p>
+                                    @* <span class="badge badge-success rounded-pill d-inline">Active</span> *@
+                                   @*  <p class="fw-normal mb-1">@student.DateOfBirth?.ToString("dd-MM-yyyy")</p> *@
+
+                                </td>
+                                <td>
+                                    <p class="fw-normal mb-1 @((result.Grade == "F") ? "text-danger" : "")">@result.Grade</p>
+                                    <p class="text-muted mb-0"></p>
+                                </td>
+                                <td>
+                                    <p class="fw-normal mb-1">@result.Mark</p>
+                                    <p class="text-muted mb-0"></p>
+                                </td>
+
+
+                                <td>
+                                    <a asp-controller="Result" asp-action="GetResult" asp-route-id="@result.Id" type="button" class="btn btn-link btn-sm btn-rounded">
+                                        View
+                                    </a>
+                                    <a asp-controller="Result" asp-action="EditResult" asp-route-id="@result.Id" type="button" class="btn btn-link btn-sm btn-rounded">
+                                        Edit
+                                    </a>
+                                    <a asp-controller="Result" asp-action="DeleteResult" asp-route-id="@result.Id" type="button" class="btn btn-link btn-sm btn-rounded">
+                                        Delete
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

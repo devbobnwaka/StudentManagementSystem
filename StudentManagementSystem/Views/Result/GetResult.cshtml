@@ -1,0 +1,46 @@
+﻿@model Result;
+
+@{
+    ViewData["Title"] = "Result";
+}
+<div class="container text-start">
+    <div class="row">
+        <partial name="_SideNavPartial" />
+        <div class="col border">
+            <div class="container text-start">
+                <div class="border p-2 mt-3">
+                    <a asp-controller="Result" asp-action="ListResult" class="btn btn-light" data-mdb-ripple-init data-mdb-ripple-color="dark">
+                        <i class="bi bi-list"></i>
+                        Result List
+                    </a>
+                </div>
+                <div class="d-flex justify-content-center mt-3">
+                    <div>
+                        <h2 class="fs-2" style="font-weight:bold;">Result Detail</h2>
+                        <dl class="row" style="font-size:1.2em;">
+                            <dt class="col-sm-3">Name:</dt>
+                            <dd class="col-sm-9">@Model.Student.Name</dd>
+
+                            <dt class="col-sm-3">Class:</dt>
+                            <dd class="col-sm-9">@Model.Student.Class</dd>
+
+                            <dt class="col-sm-3">Subject:</dt>
+                            <dd class="col-sm-9">@Model.Subject.Name</dd>
+
+                            <dt class="col-sm-3">Mark:</dt>
+                            <dd class="col-sm-9">@Model.Mark</dd>
+
+                            <dt class="col-sm-3">Grade:</dt>
+                            <dd class="col-sm-9">@Model.Grade</dd>
+                        </dl>
+                        <div>
+                            <button type="button" class="btn btn-primary">Edit</button>
+                            <button type="button" class="btn btn-danger">Delete</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -32,9 +32,11 @@ namespace StudentManagementSystem.Models
             return await _dbContext.Subjects.FindAsync(id);
         }
 
-        public Task<Subject> UpdateSubject(Subject subject)
+        public async Task<Subject> UpdateSubject(Subject subject)
         {
-            throw new NotImplementedException();
+            _dbContext.Entry(subject).State = EntityState.Modified;
+            await _dbContext.SaveChangesAsync();
+            return subject;
         }
     }
 }
