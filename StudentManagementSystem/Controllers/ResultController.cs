@@ -100,7 +100,7 @@ namespace StudentManagementSystem.Controllers
 
         [HttpGet]
         public async Task<IActionResult> GetResult(Guid id)
-        {
+        { 
             ViewData["result"] = _active;
             if (id == null)
             {

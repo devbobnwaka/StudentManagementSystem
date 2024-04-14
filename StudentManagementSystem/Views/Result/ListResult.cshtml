@@ -1,6 +1,9 @@
 ﻿@model IEnumerable<Result>;
 @{
     ViewData["Title"] = "Student";
+    string klassValue = Context.Request.Query["klass"].ToString();
+    string nameValue = Context.Request.Query["name"].ToString();
+    string subjectValue = Context.Request.Query["subject"].ToString();
 }
 <div class="container text-start">
     <div class="row">
@@ -45,6 +48,10 @@
                             <input type="text" id="subject" name="subject" value="@ViewData["subject"]" />
                             <button type="submit">Search by Subject</button>
                         </form>
+
+                        <a asp-controller="File" asp-action="GeneratePDF" asp-route-klass="@klassValue" asp-route-name="@nameValue" asp-route-subject="@subjectValue"  target="_blank" class="btn btn-light" data-mdb-ripple-init data-mdb-ripple-color="dark">
+                            Download PDF
+                        </a>
                     </div>
                 </div>
                 <table class="table align-middle mb-0 bg-white">

@@ -37,11 +37,23 @@ namespace StudentManagementSystem.Models
             return await _dbContext.Students.FindAsync(id);
         }
 
+        public async Task<Student?> GetStudentByName(string name)
+        {
+            return await _dbContext.Students.FirstOrDefaultAsync(e => e.Name.Contains(name));
+        }
+
         public async Task<Student> UpdateStudent(Student student)
         {
             _dbContext.Entry(student).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
             return student;
+        }
+
+        public async Task<List<Student>> GetClassStudent(Class klass)
+        {
+            return await _dbContext.Students
+                  .Where(e => e.Class == klass)
+                .ToListAsync();
         }
     }
 }

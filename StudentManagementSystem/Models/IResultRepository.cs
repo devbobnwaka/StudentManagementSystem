@@ -3,6 +3,8 @@
     public interface IResultRepository
     {
         Task<Result> GetResultById(Guid id);
+
+        Task<Result> GetResultByStudentbySubject(Student student, Subject subject);
         Task DeleteResult(Guid id);
         Task<Result> AddResult(Result result);
         Task<Result> UpdateResult(Result result);

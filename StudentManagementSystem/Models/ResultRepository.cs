@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 
 namespace StudentManagementSystem.Models
 {
@@ -48,6 +49,14 @@ namespace StudentManagementSystem.Models
                 .Include(e => e.Student)
                 .Include(e => e.Subject)
                 .FirstOrDefaultAsync(e => e.Id == id);
+        }
+
+        public async Task<Result> GetResultByStudentbySubject(Student student, Subject subject)
+        {
+            return await _dbContext.Results
+                        .Include(e => e.Student)
+                        .Include(e => e.Subject)
+                        .FirstOrDefaultAsync(e => e.Student == student && e.Subject == subject);
         }
 
         public async Task<List<Result>> GetStudentResult(string name)
